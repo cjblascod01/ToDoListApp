@@ -1,3 +1,4 @@
+import 'package:evolve_me/models/task_recurrence.dart';
 import 'package:flutter/material.dart'; 
 import 'package:hive_flutter/hive_flutter.dart'; 
 import 'screens/home_screen.dart'; 
@@ -16,13 +17,20 @@ void main() async {
     Hive.registerAdapter(TaskAdapter());
   }
 
+  if (!Hive.isAdapterRegistered(3)) {
+    Hive.registerAdapter(TaskRecurrenceAdapter());
+  }
+
+  if (!Hive.isAdapterRegistered(5)) {
+    Hive.registerAdapter(RecurrenceTypeAdapter());
+  }
+
   await Hive.openBox<Aptitude>('aptitudesBox');
   await Hive.openBox('settings');
   await Hive.openBox<Task>('tasksBox');
 
   runApp(const UpgradeMeApp());
 }
-
 
 class UpgradeMeApp extends StatelessWidget { 
   const UpgradeMeApp({super.key}); 

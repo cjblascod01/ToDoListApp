@@ -19,9 +19,9 @@ class AptitudeAdapter extends TypeAdapter<Aptitude> {
     return Aptitude(
       id: fields[0] as String,
       name: fields[1] as String,
-      evolutions: (fields[2] as List).cast<String>(),
-      level: fields[3] as int,
-      xp: fields[4] as int,
+      level: fields[2] as int,
+      xp: fields[3] as int,
+      evolutions: (fields[4] as List).cast<String>(),
     );
   }
 
@@ -34,11 +34,11 @@ class AptitudeAdapter extends TypeAdapter<Aptitude> {
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.evolutions)
-      ..writeByte(3)
       ..write(obj.level)
+      ..writeByte(3)
+      ..write(obj.xp)
       ..writeByte(4)
-      ..write(obj.xp);
+      ..write(obj.evolutions);
   }
 
   @override

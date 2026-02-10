@@ -1,37 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'task.dart';
+part of 'task_base.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TaskAdapter extends TypeAdapter<Task> {
+class TaskBaseAdapter extends TypeAdapter<TaskBase> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
-  Task read(BinaryReader reader) {
+  TaskBase read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Task(
+    return TaskBase(
       id: fields[0] as String,
       title: fields[1] as String,
       primaryAptitudeId: fields[2] as String,
       secondaryAptitudeId: fields[3] as String?,
-      completedToday: fields[4] as bool,
-      positiveStreak: fields[5] as int,
-      negativeStreak: fields[6] as int,
-      recurrence: fields[7] as TaskRecurrence?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Task obj) {
+  void write(BinaryWriter writer, TaskBase obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -39,15 +35,7 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(2)
       ..write(obj.primaryAptitudeId)
       ..writeByte(3)
-      ..write(obj.secondaryAptitudeId)
-      ..writeByte(4)
-      ..write(obj.completedToday)
-      ..writeByte(5)
-      ..write(obj.positiveStreak)
-      ..writeByte(6)
-      ..write(obj.negativeStreak)
-      ..writeByte(7)
-      ..write(obj.recurrence);
+      ..write(obj.secondaryAptitudeId);
   }
 
   @override
@@ -56,7 +44,7 @@ class TaskAdapter extends TypeAdapter<Task> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TaskAdapter &&
+      other is TaskBaseAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

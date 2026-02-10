@@ -1,11 +1,10 @@
 import 'package:hive/hive.dart';
 import 'task_base.dart';
-import 'task_recurrence.dart';
 
-part 'task.g.dart';
+part 'vice.g.dart';
 
-@HiveType(typeId: 1)
-class Task extends TaskBase {
+@HiveType(typeId: 4)
+class Vice extends TaskBase{
   @HiveField(0)
   @override
   String id;
@@ -34,10 +33,7 @@ class Task extends TaskBase {
   @override
   int negativeStreak;
 
-  @HiveField(7)
-  TaskRecurrence recurrence;
-
-  Task({
+  Vice({
     required this.id,
     required this.title,
     required this.primaryAptitudeId,
@@ -45,9 +41,7 @@ class Task extends TaskBase {
     this.completedToday = false,
     this.positiveStreak = 0,
     this.negativeStreak = 0,
-    TaskRecurrence? recurrence,
-  }) : recurrence = recurrence ?? TaskRecurrence.daily(), 
-        super(
+  }) : super(
           id: id,
           title: title,
           primaryAptitudeId: primaryAptitudeId,

@@ -5,31 +5,32 @@ part 'aptitude.g.dart';
 @HiveType(typeId: 0)
 class Aptitude extends HiveObject {
   @HiveField(0)
-  String id;
+  final String id;
 
   @HiveField(1)
-  String name;
+  final String name;
 
   @HiveField(2)
-  List<String> evolutions;
-
-  @HiveField(3)
   int level;
 
-  @HiveField(4)
+  @HiveField(3)
   int xp;
+
+  @HiveField(4)
+  final List<String> evolutions;
 
   Aptitude({
     required this.id,
     required this.name,
-    required this.evolutions,
     this.level = 1,
     this.xp = 0,
+    required this.evolutions,
   });
 
-  int get xpToNextLevel => level * 100;
+  // ---------- DERIVADOS ----------
+  int get xpToNextLevel => 100 + (level - 1) * 50;
 
-  double get progress => xp / xpToNextLevel;
+  double get progress => (xp / xpToNextLevel).clamp(0.0, 1.0);
 
   String get currentPokemon {
     if (level >= 25 && evolutions.length >= 3) {
@@ -41,16 +42,4 @@ class Aptitude extends HiveObject {
     }
   }
 
-  // 🔥 MÉTODO CLAVE
-  void addXp(int amount) {
-    xp += amount;
-
-    while (xp >= xpToNextLevel) {
-      xp -= xpToNextLevel;
-      level++;
-    }
-
-    save();
-  }
 }
-

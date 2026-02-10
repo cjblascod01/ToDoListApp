@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'task.dart';
+part of 'vice.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TaskAdapter extends TypeAdapter<Task> {
+class ViceAdapter extends TypeAdapter<Vice> {
   @override
-  final int typeId = 1;
+  final int typeId = 4;
 
   @override
-  Task read(BinaryReader reader) {
+  Vice read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Task(
+    return Vice(
       id: fields[0] as String,
       title: fields[1] as String,
       primaryAptitudeId: fields[2] as String,
@@ -24,14 +24,13 @@ class TaskAdapter extends TypeAdapter<Task> {
       completedToday: fields[4] as bool,
       positiveStreak: fields[5] as int,
       negativeStreak: fields[6] as int,
-      recurrence: fields[7] as TaskRecurrence?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Task obj) {
+  void write(BinaryWriter writer, Vice obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -45,9 +44,7 @@ class TaskAdapter extends TypeAdapter<Task> {
       ..writeByte(5)
       ..write(obj.positiveStreak)
       ..writeByte(6)
-      ..write(obj.negativeStreak)
-      ..writeByte(7)
-      ..write(obj.recurrence);
+      ..write(obj.negativeStreak);
   }
 
   @override
@@ -56,7 +53,7 @@ class TaskAdapter extends TypeAdapter<Task> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TaskAdapter &&
+      other is ViceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
