@@ -40,4 +40,17 @@ class Aptitude extends HiveObject {
       return evolutions[0];
     }
   }
+
+  // 🔥 MÉTODO CLAVE
+  void addXp(int amount) {
+    xp += amount;
+
+    while (xp >= xpToNextLevel) {
+      xp -= xpToNextLevel;
+      level++;
+    }
+
+    save();
+  }
 }
+

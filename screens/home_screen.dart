@@ -1,9 +1,9 @@
+import 'package:evolve_me/services/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/aptitude.dart';
-import '../services/task_service.dart';
 import '../screens/task_screen.dart';
-import 'aptitude_card.dart';
+import '../widgets/aptitude_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,21 +15,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Box<Aptitude> aptitudeBox;
   late Box settingsBox;
-
   final TaskService taskService = TaskService();
 
   @override
   void initState() {
     super.initState();
+
     aptitudeBox = Hive.box<Aptitude>('aptitudesBox');
     settingsBox = Hive.box('settings');
 
     _initializeAptitudes();
+
+    // 🔥 CIERRE AUTOMÁTICO
+    taskService.checkAndProcessNewDay();
   }
 
   // --------------------- Inicialización ---------------------
   void _initializeAptitudes() {
-    final initialized = settingsBox.get('aptitudes_initialized', defaultValue: false);
+    final initialized =
+        settingsBox.get('aptitudes_initialized', defaultValue: false);
     if (initialized) return;
 
     aptitudeBox.putAll({
@@ -60,28 +64,31 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Evolve Me'),
         actions: [
+          // 🧪 BOTÓN TEST
           IconButton(
-            icon: const Icon(Icons.list_alt),
-            tooltip: 'Gestionar tareas',
+            icon: const Icon(Icons.skip_next),
+            tooltip: 'Cerrar día (TEST)',
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const TasksScreen()),
+              taskService.forceCloseDay();
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Día cerrado manualmente')),
               );
             },
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          taskService.processEndOfDay();
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Día procesado')),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        label: const Text('Añadir tarea'),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => const TasksScreen()),
           );
         },
-        icon: const Icon(Icons.nightlight_round),
-        label: const Text('Cerrar día'),
       ),
+
       body: ValueListenableBuilder(
         valueListenable: aptitudeBox.listenable(),
         builder: (context, Box<Aptitude> box, _) {
@@ -91,11 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(16),
             itemCount: aptitudes.length,
             itemBuilder: (context, index) {
-              final aptitude = aptitudes[index];
-
               return AptitudeCard(
-                aptitude: aptitude,
-                onAddXp: () {}, // Ya no se usa manualmente
+                aptitude: aptitudes[index],
+                onAddXp: () {},
               );
             },
           );

@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'task.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 class Task extends HiveObject {
   @HiveField(0)
   String id;
@@ -22,11 +22,18 @@ class Task extends HiveObject {
   @HiveField(4)
   bool completedToday;
 
-  Task({
-    required this.id,
-    required this.title,
-    required this.primaryAptitudeId,
-    this.secondaryAptitudeId,
-    this.completedToday = false,
-  });
+  @HiveField(5) 
+  int positiveStreak; 
+
+  @HiveField(6) 
+  int negativeStreak;
+
+  Task({ 
+    required this.id, 
+    required this.title, 
+    required this.primaryAptitudeId, 
+    this.secondaryAptitudeId, 
+    this.completedToday = false, 
+    this.positiveStreak = 0, 
+    this.negativeStreak = 0, });
 }

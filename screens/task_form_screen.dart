@@ -92,7 +92,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                initialValue: _primaryAptitude,
+                value: _primaryAptitude,
                 decoration: const InputDecoration(labelText: 'Aptitud principal'),
                 items: aptitudes
                     .map((a) => DropdownMenuItem(value: a.id, child: Text(a.name)))
@@ -102,7 +102,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                initialValue: _secondaryAptitude,
+                value: _secondaryAptitude,
                 decoration: const InputDecoration(labelText: 'Aptitud secundaria (opcional)'),
                 items: [
                   const DropdownMenuItem(value: null, child: Text('Ninguna')),
